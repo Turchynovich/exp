@@ -10,6 +10,7 @@
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="status" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="symbol" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="payment" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Payment" inverseName="currency" inverseEntity="Payment" syncable="YES"/>
     </entity>
     <entity name="Image" representedClassName=".Image" syncable="YES">
         <attribute name="name" attributeType="String" syncable="YES"/>
@@ -19,11 +20,12 @@
         <attribute name="count" attributeType="Double" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="date" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="payment" inverseEntity="Category" syncable="YES"/>
+        <relationship name="currency" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Currency" inverseName="payment" inverseEntity="Currency" syncable="YES"/>
     </entity>
     <elements>
         <element name="Category" positionX="281.984375" positionY="-166.76953125" width="128" height="88"/>
-        <element name="Currency" positionX="270" positionY="-135" width="128" height="105"/>
+        <element name="Currency" positionX="270" positionY="-135" width="128" height="120"/>
         <element name="Image" positionX="452.421875" positionY="-164.65625" width="128" height="73"/>
-        <element name="Payment" positionX="88.40625" positionY="-166.55859375" width="128" height="90"/>
+        <element name="Payment" positionX="88.40625" positionY="-166.55859375" width="128" height="105"/>
     </elements>
 </model>

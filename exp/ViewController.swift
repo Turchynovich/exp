@@ -5,10 +5,7 @@ class ViewController: UIViewController {
     
     var userIsInTheMiddleOfTyping​ = false
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-//    var currencySaveToData = Currency()
-/*    var ctfd = CurrencyWork()
-    var arcu = [(Currency, Bool)]()
-*/
+    var currencySaveToData: Currency?
     
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var containerView: UIView!
@@ -55,7 +52,7 @@ class ViewController: UIViewController {
         backButton.isHidden = !bool
         
         if bool {
-            //buttonsCurrency()
+            buttonsCurrency()
         }
  
     }
@@ -101,7 +98,9 @@ class ViewController: UIViewController {
             }
         }
         managedObject.category = paymentCategory
-//        managedObject.currency = currencySaveToData
+        if let ds = currencySaveToData {
+            managedObject.currency = ds
+        }
         CoreDataManager.instance.saveContext()
     }
  
@@ -152,7 +151,7 @@ class ViewController: UIViewController {
             }
         }
     }
-    /*
+    
     func lastPaymentCurrency() -> Currency {
         var d = Currency()
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Payment")
@@ -194,28 +193,26 @@ class ViewController: UIViewController {
         case 1:
             currencySaveToData = arrayActiveCurrency[0]
         case 2:
-            
-            /*
-            if arrayActiveCurrency![1] == lastPaymentCurrency {
-                drowCurrencyButton(x: 139, y: 125, code: arrayActiveCurrency?[0].code ?? "", activeted: false, tag: 101)
-                drowCurrencyButton(x: 195, y: 125, code: arrayActiveCurrency?[1].code ?? "", activeted: true, tag: 102)
-                currencySaveToData = arrayActiveCurrency?[1]
+            if arrayActiveCurrency[0] == lastPaymentCurrency() {
+                drowCurrencyButton(x: 139, y: 125, code: arrayActiveCurrency[0].code ?? "", activeted: true, tag: 101)
+                drowCurrencyButton(x: 195, y: 125, code: arrayActiveCurrency[1].code ?? "", activeted: false, tag: 102)
+                currencySaveToData = arrayActiveCurrency[0]
+            } else if arrayActiveCurrency[1] == lastPaymentCurrency() {
+                drowCurrencyButton(x: 139, y: 125, code: arrayActiveCurrency[1].code ?? "", activeted: true, tag: 101)
+                drowCurrencyButton(x: 195, y: 125, code: arrayActiveCurrency[0].code ?? "", activeted: false, tag: 102)
+                currencySaveToData = arrayActiveCurrency[1]
             } else {
-                drowCurrencyButton(x: 139, y: 125, code: arrayActiveCurrency?[0].code ?? "", activeted: true, tag: 101)
-                drowCurrencyButton(x: 195, y: 125, code: arrayActiveCurrency?[1].code ?? "", activeted: false, tag: 102)
-                currencySaveToData = arrayActiveCurrency?[0]
+                drowCurrencyButton(x: 139, y: 125, code: arrayActiveCurrency[0].code ?? "", activeted: true, tag: 101)
+                drowCurrencyButton(x: 195, y: 125, code: arrayActiveCurrency[1].code ?? "", activeted: false, tag: 102)
+                currencySaveToData = arrayActiveCurrency[0]
             }
-            */
-            print("2")
-            
-            
         case 3:
             print("3")
         default:
             print("error")
         }
         
-    }*/
+    }
     
 /*    func createCurrency(name: String, symbol: String, code: String) {
         let managedObject = Currency()
@@ -294,18 +291,24 @@ class ViewController: UIViewController {
     }
 
     @IBAction func ImageAction(_ sender: UIButton) {
-/*        var activeCurrencyArray = ctfd.existLastPaymentCurrencyInArray()
+        var activeCurrencyArray = [Currency]()
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Currency")
+        let statusPredicate = NSPredicate(format: "status == %@", NSNumber(value: true))
+        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [statusPredicate])
+        fetchRequest.predicate = datePredicate
+        do {
+            let results = try! CoreDataManager.instance.managedObjectContext.fetch(fetchRequest)
+            activeCurrencyArray = results as! [Currency]
+        }
+        
         let ar = [101, 102, 103]
         var tg = 0
         
-        for (index, value) in activeCurrencyArray.enumerated() {
-            if value.0.code == sender.currentTitle {
-                activeCurrencyArray[index].1 = true
+        for i in activeCurrencyArray {
+            if i.code == sender.currentTitle {
+                currencySaveToData = i
                 sender.backgroundColor = UIColor(white: 1, alpha: 0.3)
                 tg = sender.tag
-                currencyLabel.text = value.0.symbol ?? ""
-            } else {
-                activeCurrencyArray[index].1 = false
             }
         }
 
@@ -315,18 +318,8 @@ class ViewController: UIViewController {
                 tempButton?.backgroundColor = UIColor.clear
             }
         }
-        arcu = activeCurrencyArray
-        offCurrencyButton()
-        buttonCurrency()
     }
     
-    func offCurrencyButton() {
-        let ar = [101, 102, 103]
-        for i in ar {
-            let tempButton = self.view.viewWithTag(i) as? UIButton
-            tempButton?.removeFromSuperview()
-        }
-*/    }
     
     //для перехода на этот экран
     static func storyboardInstance() -> ViewController? {
@@ -354,7 +347,10 @@ class ViewController: UIViewController {
     }
     @IBAction func numPad(_ sender: UIButton) {
 /*        offCurrencyButton()
-*/        showSecondPlan(bool: true)
+*/
+        if !containerView.isHidden {
+            showSecondPlan(bool: true)
+        }
         if let digit = sender.currentTitle {
             let textCurrentlyInDisplay = priceLabel!.text!
             priceLabel.text = textCurrentlyInDisplay + digit

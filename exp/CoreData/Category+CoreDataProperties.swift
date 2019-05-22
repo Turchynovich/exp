@@ -2,7 +2,7 @@
 //  Category+CoreDataProperties.swift
 //  exp
 //
-//  Created by Артём Турчинович on 4/27/19.
+//  Created by Артём Турчинович on 5/22/19.
 //  Copyright © 2019 Артём Турчинович. All rights reserved.
 //
 //
