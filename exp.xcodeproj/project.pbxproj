@@ -15,7 +15,6 @@
 		AC53FDBB227EF9BE00563394 /* Currency+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC53FDB9227EF9BE00563394 /* Currency+CoreDataProperties.swift */; };
 		AC655C98223E5A1D0073340D /* AddCurrencyTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC655C97223E5A1C0073340D /* AddCurrencyTableViewCell.swift */; };
 		AC655C9A223E76BE0073340D /* SelectCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC655C99223E76BE0073340D /* SelectCurrency.swift */; };
-		AC866EB721FB6D7D00A4FF70 /* CurrencyWork.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC866EB621FB6D7D00A4FF70 /* CurrencyWork.swift */; };
 		AC941711227497C500CD664B /* Category+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC941709227497C500CD664B /* Category+CoreDataClass.swift */; };
 		AC941712227497C500CD664B /* Category+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC94170A227497C500CD664B /* Category+CoreDataProperties.swift */; };
 		AC941713227497C500CD664B /* Payment+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC94170B227497C500CD664B /* Payment+CoreDataClass.swift */; };
@@ -64,7 +63,6 @@
 		AC53FDB9227EF9BE00563394 /* Currency+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Currency+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AC655C97223E5A1C0073340D /* AddCurrencyTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrencyTableViewCell.swift; sourceTree = "<group>"; };
 		AC655C99223E76BE0073340D /* SelectCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectCurrency.swift; sourceTree = "<group>"; };
-		AC866EB621FB6D7D00A4FF70 /* CurrencyWork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyWork.swift; sourceTree = "<group>"; };
 		AC941709227497C500CD664B /* Category+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataClass.swift"; sourceTree = "<group>"; };
 		AC94170A227497C500CD664B /* Category+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Category+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		AC94170B227497C500CD664B /* Payment+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Payment+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -194,7 +192,6 @@
 				ACDA5F172110DF0E006A60FD /* Info.plist */,
 				ACDA5F0F2110DF0D006A60FD /* exp.xcdatamodeld */,
 				ACEC274321EA2C470016750C /* Assest.xcassets */,
-				AC866EB621FB6D7D00A4FF70 /* CurrencyWork.swift */,
 				ACE846A421FC7B1300F4FAE6 /* FirstStart.swift */,
 			);
 			path = exp;
@@ -324,7 +321,6 @@
 				ACEF9D5721123B2C00CD4EC5 /* YesterdayViewController.swift in Sources */,
 				AC941713227497C500CD664B /* Payment+CoreDataClass.swift in Sources */,
 				AC941715227497C500CD664B /* Image+CoreDataClass.swift in Sources */,
-				AC866EB721FB6D7D00A4FF70 /* CurrencyWork.swift in Sources */,
 				AC4389EE21A3553F00F87B8E /* FilterViewController.swift in Sources */,
 				ACDA5F112110DF0D006A60FD /* exp.xcdatamodeld in Sources */,
 				ACB4AFA521403F8A00D65801 /* CategoryViewController.swift in Sources */,
