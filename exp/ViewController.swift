@@ -195,7 +195,6 @@ class ViewController: UIViewController {
         switch arrayActiveCurrency.count {
         case 1:
             currencySaveToData = arrayActiveCurrency[0]
-            print("Количество активных валют: 1")
         case 2:
             if arrayActiveCurrency[0] == lastPaymentCurrency() {
                 drowCurrencyButton(x: 139, y: 125, code: arrayActiveCurrency[0], activeted: true, tag: 101)
@@ -215,23 +214,26 @@ class ViewController: UIViewController {
                 drowCurrencyButton(x: 105, y: 125, code: arrayActiveCurrency[0], activeted: true, tag: 101)
                 drowCurrencyButton(x: 167, y: 125, code: arrayActiveCurrency[1], activeted: false, tag: 102)
                 drowCurrencyButton(x: 229, y: 125, code: arrayActiveCurrency[2], activeted: false, tag: 103)
+                currencySaveToData = arrayActiveCurrency[0]
             } else if arrayActiveCurrency[1] == lastPaymentCurrency() {
                 drowCurrencyButton(x: 105, y: 125, code: arrayActiveCurrency[1], activeted: true, tag: 101)
                 drowCurrencyButton(x: 167, y: 125, code: arrayActiveCurrency[0], activeted: false, tag: 102)
                 drowCurrencyButton(x: 229, y: 125, code: arrayActiveCurrency[2], activeted: false, tag: 103)
+                currencySaveToData = arrayActiveCurrency[1]
             } else if arrayActiveCurrency[2] == lastPaymentCurrency() {
                 drowCurrencyButton(x: 105, y: 125, code: arrayActiveCurrency[2], activeted: true, tag: 101)
                 drowCurrencyButton(x: 167, y: 125, code: arrayActiveCurrency[1], activeted: false, tag: 102)
                 drowCurrencyButton(x: 229, y: 125, code: arrayActiveCurrency[0], activeted: false, tag: 103)
+                currencySaveToData = arrayActiveCurrency[2]
             } else {
                 drowCurrencyButton(x: 105, y: 125, code: arrayActiveCurrency[0], activeted: true, tag: 101)
                 drowCurrencyButton(x: 167, y: 125, code: arrayActiveCurrency[1], activeted: false, tag: 102)
                 drowCurrencyButton(x: 229, y: 125, code: arrayActiveCurrency[2], activeted: false, tag: 103)
+                currencySaveToData = arrayActiveCurrency[0]
             }
         default:
             print("error")
         }
-        
     }
     
     func drowCurrencyButton(x: Int, y: Int, code: String, activeted: Bool, tag: Int) {
