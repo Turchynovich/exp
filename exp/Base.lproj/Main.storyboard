@@ -50,7 +50,7 @@
                                 <rect key="frame" x="50" y="22" width="275" height="275"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="GothamPro" family="Gotham Pro" pointSize="63"/>
-                                <state key="normal" title="93.28" backgroundImage="Ovalbutton">
+                                <state key="normal" title="0.0" backgroundImage="Ovalbutton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -80,7 +80,7 @@
                                 <rect key="frame" x="50" y="22" width="275" height="275"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="GothamPro" family="Gotham Pro" pointSize="63"/>
-                                <state key="normal" title="93.28" backgroundImage="Ovalbutton">
+                                <state key="normal" title="0.0" backgroundImage="Ovalbutton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -110,7 +110,7 @@
                                 <rect key="frame" x="50" y="22" width="275" height="275"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="GothamPro" family="Gotham Pro" pointSize="63"/>
-                                <state key="normal" title="93.28" backgroundImage="Ovalbutton">
+                                <state key="normal" title="0.0" backgroundImage="Ovalbutton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
@@ -140,7 +140,7 @@
                                 <rect key="frame" x="50" y="22" width="275" height="275"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="GothamPro" family="Gotham Pro" pointSize="63"/>
-                                <state key="normal" title="93.28" backgroundImage="Ovalbutton">
+                                <state key="normal" title="0.0" backgroundImage="Ovalbutton">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>

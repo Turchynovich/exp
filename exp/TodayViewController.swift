@@ -15,8 +15,20 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonCurrency()
-        calculate()
-        print(countOfCurrencyToday())
+    }
+    
+    /*проверяет, сколько транзакций с разными валютами за сегодня
+     если 1 - то считает сумму
+     если больше - то рисует кнопки для разных валют и считает*/
+    func logic() {
+        if countOfCurrencyToday().count == 1 {
+            calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
+        } else {
+            for i in countOfCurrencyToday() {
+                //currencyFromCode(code: i)
+                print(i)
+            }
+        }
     }
     
     //возвращает массив валют, которые были использованы сегодня(первые 3)
@@ -46,13 +58,26 @@ class TodayViewController: UIViewController {
                 if arrayOfCurrency.count < 3 {
                     arrayOfCurrency.append((dd as! Currency).code ?? "")
                 }
-                
             }
         }
         return arrayOfCurrency
     }
     
-    func calculate(/*cur: Currency*/) {
+    //возвращаеь класс Currency по коду валюы
+    func currencyFromCode(code: String) -> Currency {
+        let toPredicate = NSPredicate(format: "code = %@", code)
+        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [toPredicate])
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Currency")
+        
+        request.predicate = datePredicate
+        do {
+            let objects = try! CoreDataManager.instance.managedObjectContext.fetch(request)
+            return objects[0] as! Currency
+        }
+    }
+    
+    //считает сумму за сегодня по определенной валюте
+    func calculate(cur: Currency) {
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.local
         
@@ -62,8 +87,8 @@ class TodayViewController: UIViewController {
         
         let fromPredicate = NSPredicate(format: "date >= %@", dateFrom)
         let toPredicate = NSPredicate(format: "date < %@", dateTo)
-//        let predicate = NSPredicate(format: "currency == %@", cur)
-        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate/*, predicate*/])
+        let predicate = NSPredicate(format: "currency == %@", cur)
+        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate, predicate])
         
         datFrom = dateFrom
         datTo = dateTo
@@ -83,6 +108,24 @@ class TodayViewController: UIViewController {
         todayButton.setTitle(String(fr), for: .normal)
     }
     
+    //валюта последней транзакции
+    func lastPaymentCurrency() -> String {
+        var d = ""
+        let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Payment")
+        let sortDescriptor = NSSortDescriptor(key: "date", ascending: false)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        fetchRequest.fetchLimit = 1
+        do {
+            let results = try! CoreDataManager.instance.managedObjectContext.fetch(fetchRequest)
+            for result in results as! [Payment] {
+                if let res = result.currency?.code {
+                    d = res
+                }
+            }
+        }
+        return d
+    }
+    
     func dateString(date: NSDate) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "MMM dd, yyyy"
@@ -93,41 +136,48 @@ class TodayViewController: UIViewController {
     //добавить кнопки с валютами
     func buttonCurrency() {
         
-/*        var activeCurrencyArray = [(Currency, Bool)]()
-        if arcu.isEmpty {
-            activeCurrencyArray = ctfd.existLastPaymentCurrencyInArray()
-        } else {
-            activeCurrencyArray = arcu
-        }
-
-        switch activeCurrencyArray.count {
+        switch countOfCurrencyToday().count {
         case 1:
-            for i in activeCurrencyArray {
-                if i.1 {
-                    calculate(cur: i.0)
-                }
-            }
+            calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
         case 2:
-            drowCurrencyButton(x: 89, y: 46, code: activeCurrencyArray[0].0.code ?? "", activeted: activeCurrencyArray[0].1, tag: 101)
-            drowCurrencyButton(x: 145, y: 46, code: activeCurrencyArray[1].0.code ?? "", activeted: activeCurrencyArray[1].1, tag: 102)
-            //arcu = activeCurrencyArray
-            for i in activeCurrencyArray {
-                if i.1 {
-                    calculate(cur: i.0)
-                }
+            if countOfCurrencyToday()[0] == lastPaymentCurrency() {
+                drowCurrencyButton(x: 89, y: 46, code: countOfCurrencyToday()[0], activeted: true, tag: 201)
+                drowCurrencyButton(x: 145, y: 46, code: countOfCurrencyToday()[1], activeted: false, tag: 202)
+                calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
+            } else if countOfCurrencyToday()[1] == lastPaymentCurrency() {
+                drowCurrencyButton(x: 89, y: 46, code: countOfCurrencyToday()[1], activeted: true, tag: 201)
+                drowCurrencyButton(x: 145, y: 46, code: countOfCurrencyToday()[0], activeted: false, tag: 202)
+                calculate(cur: currencyFromCode(code: countOfCurrencyToday()[1]))
+            } else {
+                drowCurrencyButton(x: 89, y: 46, code: countOfCurrencyToday()[0], activeted: true, tag: 201)
+                drowCurrencyButton(x: 145, y: 46, code: countOfCurrencyToday()[1], activeted: false, tag: 202)
+                calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
+            }
+        case 3:
+            if countOfCurrencyToday()[0] == lastPaymentCurrency() {
+                drowCurrencyButton(x: 55, y: 46, code: countOfCurrencyToday()[0], activeted: true, tag: 201)
+                drowCurrencyButton(x: 117, y: 46, code: countOfCurrencyToday()[1], activeted: false, tag: 202)
+                drowCurrencyButton(x: 179, y: 46, code: countOfCurrencyToday()[2], activeted: false, tag: 203)
+                calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
+            } else if countOfCurrencyToday()[1] == lastPaymentCurrency() {
+                drowCurrencyButton(x: 55, y: 46, code: countOfCurrencyToday()[1], activeted: true, tag: 201)
+                drowCurrencyButton(x: 117, y: 46, code: countOfCurrencyToday()[0], activeted: false, tag: 202)
+                drowCurrencyButton(x: 179, y: 46, code: countOfCurrencyToday()[2], activeted: false, tag: 203)
+                calculate(cur: currencyFromCode(code: countOfCurrencyToday()[1]))
+            } else if countOfCurrencyToday()[2] == lastPaymentCurrency() {
+                drowCurrencyButton(x: 55, y: 46, code: countOfCurrencyToday()[2], activeted: true, tag: 201)
+                drowCurrencyButton(x: 117, y: 46, code: countOfCurrencyToday()[1], activeted: false, tag: 202)
+                drowCurrencyButton(x: 179, y: 46, code: countOfCurrencyToday()[0], activeted: false, tag: 203)
+                calculate(cur: currencyFromCode(code: countOfCurrencyToday()[2]))
+            } else {
+                drowCurrencyButton(x: 55, y: 46, code: countOfCurrencyToday()[0], activeted: true, tag: 201)
+                drowCurrencyButton(x: 117, y: 46, code: countOfCurrencyToday()[1], activeted: false, tag: 202)
+                drowCurrencyButton(x: 179, y: 46, code: countOfCurrencyToday()[2], activeted: false, tag: 203)
+                calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
             }
         default:
-            drowCurrencyButton(x: 55, y: 46, code: activeCurrencyArray[0].0.code ?? "", activeted: activeCurrencyArray[0].1, tag: 101)
-            drowCurrencyButton(x: 117, y: 46, code: activeCurrencyArray[1].0.code ?? "", activeted: activeCurrencyArray[1].1, tag: 102)
-            drowCurrencyButton(x: 179, y: 46, code: activeCurrencyArray[2].0.code ?? "", activeted: activeCurrencyArray[2].1, tag: 103)
-            //arcu = activeCurrencyArray
-            for i in activeCurrencyArray {
-                if i.1 {
-                    calculate(cur: i.0)
-                }
-            }
+            print("error")
         }
- */
     }
     
     func drowCurrencyButton(x: Int, y: Int, code: String, activeted: Bool, tag: Int) {
@@ -148,40 +198,26 @@ class TodayViewController: UIViewController {
         self.todayButton.addSubview(button)
     }
     
-    func offCurrencyButton() {
-        let ar = [101, 102, 103]
-        for i in ar {
-            let tempButton = self.view.viewWithTag(i) as? UIButton
-            tempButton?.removeFromSuperview()
-        }
-    }
-    
     
     @IBAction func ImageAction(_ sender: UIButton) {
-//        var activeCurrencyArray = ctfd.existLastPaymentCurrencyInArray()
-        let ar = [101, 102, 103]
+        let activeCurrencyArray = countOfCurrencyToday()
+        let ar = [201, 202, 203]
         var tg = 0
         
-/*        for (index, value) in activeCurrencyArray.enumerated() {
-            if value.0.code == sender.currentTitle {
-                activeCurrencyArray[index].1 = true
+        for i in activeCurrencyArray {
+            if i == sender.currentTitle {
+                calculate(cur: currencyFromCode(code: i))
                 sender.backgroundColor = UIColor(white: 1, alpha: 0.3)
                 tg = sender.tag
-                
-            } else {
-                activeCurrencyArray[index].1 = false
             }
         }
-*/
+        
         for i in ar {
             if i != tg {
                 let tempButton = self.view.viewWithTag(i) as? UIButton
                 tempButton?.backgroundColor = UIColor.clear
             }
         }
-//        arcu = activeCurrencyArray
-        offCurrencyButton()
-        buttonCurrency()
     }
     
     @IBAction func ovalTodayAction(_ sender: UIButton) {

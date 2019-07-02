@@ -241,7 +241,7 @@ class ViewController: UIViewController {
         button.frame = CGRect(x: x, y: y, width: 41, height: 41)
         button.layer.cornerRadius = 0.5 * button.bounds.size.width
         if activeted {
-            button.backgroundColor = UIColor(white: 1, alpha: 0.3)
+            button.backgroundColor = UIColor(white: 1, alpha: 0.1)
         } else {
             button.backgroundColor = UIColor.clear
         }
@@ -273,7 +273,7 @@ class ViewController: UIViewController {
         for i in activeCurrencyArray {
             if i == sender.currentTitle {
                 currencySaveToData = i
-                sender.backgroundColor = UIColor(white: 1, alpha: 0.3)
+                sender.backgroundColor = UIColor(white: 1, alpha: 0.1)
                 tg = sender.tag
             }
         }
