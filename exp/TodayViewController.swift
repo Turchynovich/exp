@@ -15,6 +15,41 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonCurrency()
+        calculate()
+        print(countOfCurrencyToday())
+    }
+    
+    //возвращает массив валют, которые были использованы сегодня(первые 3)
+    func countOfCurrencyToday() -> [String] {
+        var arrayOfCurrency = [String]()
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        
+        let dateFrom = calendar.startOfDay(for: Date()) as NSDate
+        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom as Date)! as NSDate
+        
+        let fromPredicate = NSPredicate(format: "date >= %@", dateFrom)
+        let toPredicate = NSPredicate(format: "date < %@", dateTo)
+        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Payment")
+
+        request.resultType = .dictionaryResultType
+        request.propertiesToFetch = ["currency"]
+        request.returnsObjectsAsFaults = false
+        request.propertiesToGroupBy = ["currency"]
+        
+        request.predicate = datePredicate
+        do {
+            let objects = try! CoreDataManager.instance.managedObjectContext.fetch(request)
+            for i in objects as! [[String: Any]] {
+                let dd = try! CoreDataManager.instance.managedObjectContext.existingObject(with: i["currency"] as! NSManagedObjectID)
+                if arrayOfCurrency.count < 3 {
+                    arrayOfCurrency.append((dd as! Currency).code ?? "")
+                }
+                
+            }
+        }
+        return arrayOfCurrency
     }
     
     func calculate(/*cur: Currency*/) {
