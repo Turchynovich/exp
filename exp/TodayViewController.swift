@@ -176,7 +176,7 @@ class TodayViewController: UIViewController {
                 calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
             }
         default:
-            print("error")
+            print("not transactions today")
         }
     }
     
@@ -221,24 +221,23 @@ class TodayViewController: UIViewController {
     }
     
     @IBAction func ovalTodayAction(_ sender: UIButton) {
-/*        var activeCurrencyArray = [(Currency, Bool)]()
-        if arcu.isEmpty {
-            activeCurrencyArray = ctfd.existLastPaymentCurrencyInArray()
-        } else {
-            activeCurrencyArray = arcu
-        }
-*/
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
         testVC?.startDate = datFrom
         testVC?.endDate = datTo
         testVC?.dataStr = (dateString(date: datFrom), "TODAY")
         
-/*        for i in activeCurrencyArray {
-            if i.1 {
-                testVC?.currency = i.0
+        switch countOfCurrencyToday().count {
+        case 1:
+            testVC?.currency = currencyFromCode(code: countOfCurrencyToday()[0])
+        default:
+            for i in [201, 202, 203] {
+                let tempButton1 = self.view.viewWithTag(i) as? UIButton
+                if tempButton1?.backgroundColor == UIColor(white: 1, alpha: 0.3) {
+                    testVC?.currency = currencyFromCode(code: tempButton1?.currentTitle ?? "")
+                }
             }
         }
-*/
+        
         self.present(testVC!, animated: false, completion: nil)
     }
 }
