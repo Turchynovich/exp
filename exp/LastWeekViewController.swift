@@ -2,13 +2,9 @@ import UIKit
 import CoreData
 
 class LastWeekViewController: UIViewController {
-
     var summ1 = 0.0
     var datFrom = NSDate()
     var datTo = NSDate()
-    var currancyarr = [(symbol: String, code: String)]()
-//    var ctfd = CurrencyWork()
-    var arcu = [(Currency, Bool)]()
     
     @IBOutlet weak var lastWeekButton: UIButton!
     
@@ -17,6 +13,53 @@ class LastWeekViewController: UIViewController {
         buttonCurrency()
     }
     
+    //возвращает массив валют, которые были использованы вчера(первые 3)
+    func countOfCurrencyLastWeek() -> [String] {
+        var arrayOfCurrency = [String]()
+        var calendar = Calendar.current
+        calendar.timeZone = NSTimeZone.local
+        
+        let dateNow = calendar.startOfDay(for: Date()) as NSDate
+        let dateFrom = calendar.date(byAdding: .day, value: -7, to: dateNow as Date)! as NSDate
+        let dateTo = calendar.date(byAdding: .day, value: 1, to: dateNow as Date)! as NSDate
+        
+        let fromPredicate = NSPredicate(format: "date >= %@", dateFrom)
+        let toPredicate = NSPredicate(format: "date < %@", dateTo)
+        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate])
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Payment")
+        
+        request.resultType = .dictionaryResultType
+        request.propertiesToFetch = ["currency"]
+        request.returnsObjectsAsFaults = false
+        request.propertiesToGroupBy = ["currency"]
+        
+        request.predicate = datePredicate
+        do {
+            let objects = try! CoreDataManager.instance.managedObjectContext.fetch(request)
+            for i in objects as! [[String: Any]] {
+                let dd = try! CoreDataManager.instance.managedObjectContext.existingObject(with: i["currency"] as! NSManagedObjectID)
+                if arrayOfCurrency.count < 3 {
+                    arrayOfCurrency.append((dd as! Currency).code ?? "")
+                }
+            }
+        }
+        return arrayOfCurrency
+    }
+    
+    //возвращаеь класс Currency по коду валюы
+    func currencyFromCode(code: String) -> Currency {
+        let toPredicate = NSPredicate(format: "code = %@", code)
+        let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [toPredicate])
+        let request: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: "Currency")
+        
+        request.predicate = datePredicate
+        do {
+            let objects = try! CoreDataManager.instance.managedObjectContext.fetch(request)
+            return objects[0] as! Currency
+        }
+    }
+    
+    //считает сумму за последнюю неделю по определенной валюте
     func calculate(cur: Currency) {
         var calendar = Calendar.current
         calendar.timeZone = NSTimeZone.local
@@ -66,43 +109,24 @@ class LastWeekViewController: UIViewController {
     
     //добавить кнопки с валютами
     func buttonCurrency() {
-/*
-        var activeCurrencyArray = [(Currency, Bool)]()
-        if arcu.isEmpty {
-            activeCurrencyArray = ctfd.existLastPaymentCurrencyInArray()
-        } else {
-            activeCurrencyArray = arcu
-        }
-        
-        switch activeCurrencyArray.count {
+        switch countOfCurrencyLastWeek().count {
         case 1:
-            for i in activeCurrencyArray {
-                if i.1 {
-                    calculate(cur: i.0)
-                }
-            }
+            calculate(cur: currencyFromCode(code: countOfCurrencyLastWeek()[0]))
         case 2:
-            drowCurrencyButton(x: 89, y: 46, code: activeCurrencyArray[0].0.code ?? "", activeted: activeCurrencyArray[0].1, tag: 101)
-            drowCurrencyButton(x: 145, y: 46, code: activeCurrencyArray[1].0.code ?? "", activeted: activeCurrencyArray[1].1, tag: 102)
-            //arcu = activeCurrencyArray
-            for i in activeCurrencyArray {
-                if i.1 {
-                    calculate(cur: i.0)
-                }
-            }
+            drowCurrencyButton(x: 89, y: 46, code: countOfCurrencyLastWeek()[0], activeted: true, tag: 401)
+            drowCurrencyButton(x: 145, y: 46, code: countOfCurrencyLastWeek()[1], activeted: false, tag: 402)
+            calculate(cur: currencyFromCode(code: countOfCurrencyLastWeek()[0]))
+        case 3:
+            drowCurrencyButton(x: 55, y: 46, code: countOfCurrencyLastWeek()[0], activeted: true, tag: 401)
+            drowCurrencyButton(x: 117, y: 46, code: countOfCurrencyLastWeek()[1], activeted: false, tag: 402)
+            drowCurrencyButton(x: 179, y: 46, code: countOfCurrencyLastWeek()[2], activeted: false, tag: 403)
+            calculate(cur: currencyFromCode(code: countOfCurrencyLastWeek()[0]))
         default:
-            drowCurrencyButton(x: 55, y: 46, code: activeCurrencyArray[0].0.code ?? "", activeted: activeCurrencyArray[0].1, tag: 101)
-            drowCurrencyButton(x: 117, y: 46, code: activeCurrencyArray[1].0.code ?? "", activeted: activeCurrencyArray[1].1, tag: 102)
-            drowCurrencyButton(x: 179, y: 46, code: activeCurrencyArray[2].0.code ?? "", activeted: activeCurrencyArray[2].1, tag: 103)
-            //arcu = activeCurrencyArray
-            for i in activeCurrencyArray {
-                if i.1 {
-                    calculate(cur: i.0)
-                }
-            }
+            print("not transactions yesterday")
         }
-*/    }
+    }
     
+    //рисуем конпки валют
     func drowCurrencyButton(x: Int, y: Int, code: String, activeted: Bool, tag: Int) {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: x, y: y, width: 41, height: 41)
@@ -121,28 +145,17 @@ class LastWeekViewController: UIViewController {
         self.lastWeekButton.addSubview(button)
     }
     
-    func offCurrencyButton() {
-        let ar = [101, 102, 103]
-        for i in ar {
-            let tempButton = self.view.viewWithTag(i) as? UIButton
-            tempButton?.removeFromSuperview()
-        }
-    }
-    
-    
+    //переключение между кнопками-валютами
     @IBAction func ImageAction(_ sender: UIButton) {
-/*        var activeCurrencyArray = ctfd.existLastPaymentCurrencyInArray()
-        let ar = [101, 102, 103]
+        let activeCurrencyArray = countOfCurrencyLastWeek()
+        let ar = [401, 402, 403]
         var tg = 0
         
-        for (index, value) in activeCurrencyArray.enumerated() {
-            if value.0.code == sender.currentTitle {
-                activeCurrencyArray[index].1 = true
+        for i in activeCurrencyArray {
+            if i == sender.currentTitle {
+                calculate(cur: currencyFromCode(code: i))
                 sender.backgroundColor = UIColor(white: 1, alpha: 0.3)
                 tg = sender.tag
-                
-            } else {
-                activeCurrencyArray[index].1 = false
             }
         }
         
@@ -152,29 +165,26 @@ class LastWeekViewController: UIViewController {
                 tempButton?.backgroundColor = UIColor.clear
             }
         }
-        arcu = activeCurrencyArray
-        offCurrencyButton()
-        buttonCurrency()
-*/    }
+    }
 
+    //нажатие на главную круглую кпопку
     @IBAction func ovalLastWeekAction(_ sender: UIButton) {
-/*        var activeCurrencyArray = [(Currency, Bool)]()
-        if arcu.isEmpty {
-            activeCurrencyArray = ctfd.existLastPaymentCurrencyInArray()
-        } else {
-            activeCurrencyArray = arcu
-        }
-        
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
         testVC?.startDate = datFrom
         testVC?.endDate = datTo
         testVC?.dataStr = (dateString(date: datFrom) + " - " + dateString1(date: datTo), "LAST WEEK")
-        for i in activeCurrencyArray {
-            if i.1 {
-                testVC?.currency = i.0
+        
+        switch countOfCurrencyLastWeek().count {
+        case 1:
+            testVC?.currency = currencyFromCode(code: countOfCurrencyLastWeek()[0])
+        default:
+            for i in [401, 402, 403] {
+                let tempButton1 = self.view.viewWithTag(i) as? UIButton
+                if tempButton1?.backgroundColor == UIColor(white: 1, alpha: 0.3) {
+                    testVC?.currency = currencyFromCode(code: tempButton1?.currentTitle ?? "")
+                }
             }
         }
-        
         self.present(testVC!, animated: false, completion: nil)
-*/    }
+    }
 }
