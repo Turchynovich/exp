@@ -2,33 +2,15 @@ import UIKit
 import CoreData
 
 class TodayViewController: UIViewController {
-    
     var summ1 = 0.0
     var datFrom = NSDate()
     var datTo = NSDate()
-    var currancyarr = [(symbol: String, code: String)]()
-//    var ctfd = CurrencyWork()
-//    var arcu = [(Currency, Bool)]()
     
     @IBOutlet weak var todayButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonCurrency()
-    }
-    
-    /*проверяет, сколько транзакций с разными валютами за сегодня
-     если 1 - то считает сумму
-     если больше - то рисует кнопки для разных валют и считает*/
-    func logic() {
-        if countOfCurrencyToday().count == 1 {
-            calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
-        } else {
-            for i in countOfCurrencyToday() {
-                //currencyFromCode(code: i)
-                print(i)
-            }
-        }
     }
     
     //возвращает массив валют, которые были использованы сегодня(первые 3)
@@ -84,12 +66,10 @@ class TodayViewController: UIViewController {
         let dateFrom = calendar.startOfDay(for: Date()) as NSDate
         let dateTo = calendar.date(byAdding: .day, value: 1, to: dateFrom as Date)! as NSDate
         
-        
         let fromPredicate = NSPredicate(format: "date >= %@", dateFrom)
         let toPredicate = NSPredicate(format: "date < %@", dateTo)
         let predicate = NSPredicate(format: "currency == %@", cur)
         let datePredicate = NSCompoundPredicate(andPredicateWithSubpredicates: [fromPredicate, toPredicate, predicate])
-        
         datFrom = dateFrom
         datTo = dateTo
         
@@ -103,7 +83,6 @@ class TodayViewController: UIViewController {
             }
             summ1 = summ
         }
-        
         let fr = (Double(round(1000*summ1)/1000))
         todayButton.setTitle(String(fr), for: .normal)
     }
@@ -180,6 +159,7 @@ class TodayViewController: UIViewController {
         }
     }
     
+    //рисуем конпки валют
     func drowCurrencyButton(x: Int, y: Int, code: String, activeted: Bool, tag: Int) {
         let button = UIButton(type: .custom)
         button.frame = CGRect(x: x, y: y, width: 41, height: 41)
@@ -198,7 +178,7 @@ class TodayViewController: UIViewController {
         self.todayButton.addSubview(button)
     }
     
-    
+    //переключение между кнопками-валютами
     @IBAction func ImageAction(_ sender: UIButton) {
         let activeCurrencyArray = countOfCurrencyToday()
         let ar = [201, 202, 203]
@@ -220,6 +200,7 @@ class TodayViewController: UIViewController {
         }
     }
     
+    //нажатие на главную круглую кпопку
     @IBAction func ovalTodayAction(_ sender: UIButton) {
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
         testVC?.startDate = datFrom
