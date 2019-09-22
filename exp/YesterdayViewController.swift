@@ -13,6 +13,8 @@ class YesterdayViewController: UIViewController {
         buttonCurrency()
     }
     
+    
+    
     //возвращает массив валют, которые были использованы вчера(первые 3)
     func countOfCurrencyYesterday() -> [String] {
         var arrayOfCurrency = [String]()

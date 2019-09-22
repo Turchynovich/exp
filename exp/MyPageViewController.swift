@@ -29,6 +29,8 @@ class MyPageViewController: UIPageViewController, UIPageViewControllerDataSource
         }
         myDelegate?.myPageViewController(myPageViewController: self, didUpdatePageCount: pages.count)
     }
+
+    
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = pages.index(of: viewController) else {
@@ -162,6 +164,7 @@ extension MyPageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         if let firstViewController = viewControllers?.first, let index = pages.index(of: firstViewController) {
             myDelegate?.myPageViewController(myPageViewController: self, didUpdatePageIndex: index)
+            myDelegate?.labelDate(index: index)
         }
     }
 }
@@ -169,4 +172,5 @@ extension MyPageViewController: UIPageViewControllerDelegate {
 protocol MyPageViewControllerDelegate: class {
     func myPageViewController(myPageViewController: MyPageViewController, didUpdatePageCount count: Int)
     func myPageViewController(myPageViewController: MyPageViewController, didUpdatePageIndex index: Int)
+    func labelDate(index: Int)
 }

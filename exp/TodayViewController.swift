@@ -13,6 +13,8 @@ class TodayViewController: UIViewController {
         buttonCurrency()
     }
     
+
+    
     //возвращает массив валют, которые были использованы сегодня(первые 3)
     func countOfCurrencyToday() -> [String] {
         var arrayOfCurrency = [String]()
@@ -222,3 +224,5 @@ class TodayViewController: UIViewController {
         self.present(testVC!, animated: false, completion: nil)
     }
 }
+
+

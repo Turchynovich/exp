@@ -29,9 +29,10 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showSecondPlan(bool: false)
-//        printData()
-//       categoryPrice()
+        labelDate(index: 0)
     }
+    
+
     
     func showSecondPlan(bool: Bool) {
         containerView.isHidden = bool
@@ -253,6 +254,12 @@ class ViewController: UIViewController {
         button.addTarget(self, action: #selector(ImageAction), for: .touchUpInside)
         self.view.addSubview(button)
     }
+    
+   
+    
+    
+    
+    
 
     @IBAction func ImageAction(_ sender: UIButton) {
         var activeCurrencyArray = [String]()
@@ -291,6 +298,38 @@ class ViewController: UIViewController {
     static func storyboardInstance() -> ViewController? {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         return storyboard.instantiateViewController(withIdentifier: "YourVC") as? ViewController
+    }
+    
+    //функия для даты всерху экрана
+    func labelDate(index: Int) {
+        func dateFormat(day: Int) -> String {
+            var calendar = Calendar.current
+            calendar.timeZone = .current
+            let date = calendar.date(byAdding: .day, value: day, to: Date())
+            if let dt = date {
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "MMM dd, yyyy"
+                dateFormatter.timeZone = .current
+                return dateFormatter.string(from: dt)
+            } else {
+                return ""
+            }
+        }
+        
+        switch index {
+        case 1:
+            label1.text = "YESTERDAY EXPENSES"
+            label2.text = dateFormat(day: -1)
+        case 2:
+            label1.text = "LAST WEEK EXPENSES"
+            label2.text = dateFormat(day: -7) + " - " + dateFormat(day: 0)
+        case 3:
+            label1.text = "LAST MONTH EXPENSES"
+            label2.text = dateFormat(day: -30) + " - " + dateFormat(day: 0)
+        default:
+            label1.text = "TODAY EXPENSES"
+            label2.text = dateFormat(day: 0)
+        }
     }
     
     @IBAction func addExpensesAction(_ sender: UIButton) {

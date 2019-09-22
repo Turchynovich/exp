@@ -11,6 +11,7 @@ class LastMonthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonCurrency()
+        
     }
 
     //возвращает массив валют, которые были использованы вчера(первые 3)
