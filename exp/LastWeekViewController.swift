@@ -122,7 +122,7 @@ class LastWeekViewController: UIViewController {
             drowCurrencyButton(x: 179, y: 46, code: countOfCurrencyLastWeek()[2], activeted: false, tag: 403)
             calculate(cur: currencyFromCode(code: countOfCurrencyLastWeek()[0]))
         default:
-            print("not transactions yesterday")
+            break
         }
     }
     

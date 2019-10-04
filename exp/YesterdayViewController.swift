@@ -111,7 +111,7 @@ class YesterdayViewController: UIViewController {
             drowCurrencyButton(x: 179, y: 46, code: countOfCurrencyYesterday()[2], activeted: false, tag: 303)
             calculate(cur: currencyFromCode(code: countOfCurrencyYesterday()[0]))
         default:
-            print("not transactions yesterday")
+            break
         }
     }
     

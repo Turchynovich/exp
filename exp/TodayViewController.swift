@@ -157,7 +157,7 @@ class TodayViewController: UIViewController {
                 calculate(cur: currencyFromCode(code: countOfCurrencyToday()[0]))
             }
         default:
-            print("not transactions today")
+            break
         }
     }
     
