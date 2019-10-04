@@ -205,6 +205,7 @@ class TodayViewController: UIViewController {
     //нажатие на главную круглую кпопку
     @IBAction func ovalTodayAction(_ sender: UIButton) {
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         testVC?.startDate = datFrom
         testVC?.endDate = datTo
         testVC?.dataStr = (dateString(date: datFrom), "TODAY")

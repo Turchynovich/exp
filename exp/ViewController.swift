@@ -339,6 +339,7 @@ class ViewController: UIViewController {
         priceLabel.text = ""
         
         let testVC = ViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
     
@@ -347,6 +348,7 @@ class ViewController: UIViewController {
         priceLabel.text = ""
 
         let testVC = ViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
     @IBAction func numPad(_ sender: UIButton) {
@@ -370,17 +372,20 @@ class ViewController: UIViewController {
     
     @IBAction func settingsButton(_ sender: UIButton) {
         let testVC = Settings.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
     
     @IBAction func categoryAction(_ sender: UIButton) {
         let testVC = CategoryViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         testVC?.count = priceLabel.text ?? ""
         self.present(testVC!, animated: false, completion: nil)
     }
     
     @IBAction func reportAction(_ sender: UIButton) {
         let testVC = StatisticsViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
 }

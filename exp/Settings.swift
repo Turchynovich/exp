@@ -87,11 +87,13 @@ class Settings: UIViewController {
     
     @IBAction func backButton(_ sender: UIButton) {
         let testVC = ViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
     
     @IBAction func currecyAction(_ sender: UIButton) {
         let testVC = Currencies.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
     

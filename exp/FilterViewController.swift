@@ -57,6 +57,7 @@ class FilterViewController: UIViewController {
         let dateFrom = calendar.date(byAdding: .day, value: -days, to: dateNow as Date)! as NSDate
         
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         testVC?.startDate = dateFrom
         testVC?.endDate = dateTo
         testVC?.dataStr = (dateString(date: dateFrom) + " - " + dateString1(date: dateTo), str)
@@ -157,6 +158,7 @@ class FilterViewController: UIViewController {
     
     @IBAction func backButton(_ sender: UIButton) {
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         testVC?.startDate = startDateFilter
         testVC?.endDate = endDateFilter
         testVC?.dataStr = dataStrFilter
@@ -196,6 +198,7 @@ class FilterViewController: UIViewController {
     
     @IBAction func showButton(_ sender: UIButton) {
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         testVC?.startDate = startDateFilter
         testVC?.endDate = endDateFilter
         testVC?.dataStr = (dateString(date: startDateFilter) + " - " + dateString1(date: endDateFilter), "CUSTOM DATE")

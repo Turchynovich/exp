@@ -103,6 +103,7 @@ class Payment1CategoryTableViewController: UIViewController {
     
     @IBAction func dateFilter(_ sender: UIButton) {
         let testVC = FilterViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         testVC!.startDateFilter = startDate
         testVC!.endDateFilter = endDate
         testVC!.dataStrFilter = dataStr
@@ -111,6 +112,7 @@ class Payment1CategoryTableViewController: UIViewController {
     
     @IBAction func backButton(_ sender: UIButton) {
         let textVC = ViewController.storyboardInstance()
+        textVC?.modalPresentationStyle = .fullScreen
         self.present(textVC!, animated: false, completion: nil)
         CoreDataManager.instance.managedObjectContext.reset()
     }

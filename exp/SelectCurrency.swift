@@ -38,6 +38,7 @@ class SelectCurrency: UIViewController {
 
     @IBAction func back(_ sender: UIButton) {
         let testVC = Currencies.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
     
@@ -161,6 +162,7 @@ extension SelectCurrency: UITableViewDataSource, UITableViewDelegate {
         currentCellText?.textLabel?.textColor = UIColor(red: CGFloat(0x1D)/255, green: CGFloat(0x6F)/255, blue: CGFloat(0x6D)/255, alpha: 1.0)
         
         let testVC = Currencies.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
     

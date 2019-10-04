@@ -54,6 +54,7 @@ class Currencies: UIViewController {
     
     @IBAction func backAction(_ sender: UIButton) {
         let testVC = Settings.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
 }
@@ -131,12 +132,14 @@ extension Currencies: UITableViewDelegate, UITableViewDataSource {
         func selectCurrency() {
             let currency = fetchedResultsController.object(at: indexPath) as! Currency
             let testVC = SelectCurrency.storyboardInstance()
+            testVC?.modalPresentationStyle = .fullScreen
             testVC?.selectCurrencyFromCurrencies = currency
             self.present(testVC!, animated: false, completion: nil)
         }
         
         func addCurrency() {
             let testVC = AddCurrency.storyboardInstance()
+            testVC?.modalPresentationStyle = .fullScreen
             self.present(testVC!, animated: false, completion: nil)
         }
         let s: Int = self.fetchedResultsController.fetchedObjects?.count ?? 0

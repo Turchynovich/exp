@@ -13,6 +13,7 @@ class StatisticsViewController: UIViewController {
 
     @IBAction func backAction(_ sender: UIButton) {
         let testVC = ViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
 }

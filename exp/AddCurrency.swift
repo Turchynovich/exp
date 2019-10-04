@@ -42,6 +42,7 @@ class AddCurrency: UIViewController {
 
     @IBAction func back(_ sender: UIButton) {
         let testVC = Currencies.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
     
@@ -154,6 +155,7 @@ extension AddCurrency: UITableViewDataSource, UITableViewDelegate {
         CoreDataManager.instance.saveContext()
         
         let testVC = Currencies.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: nil)
     }
  

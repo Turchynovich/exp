@@ -137,6 +137,7 @@ class NewCatViewController: UIViewController {
     
     @IBAction func cancelAction(_ sender: UIButton) {
         let testVC = CategoryViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: {
             testVC?.labelCount.text = self.count
             testVC?.count = self.count
@@ -152,6 +153,7 @@ class NewCatViewController: UIViewController {
             }
         }
         let testVC = CategoryViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: {
             testVC?.labelCount.text = self.count
             testVC?.count = self.count

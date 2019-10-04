@@ -85,6 +85,7 @@ class CategoryViewController: UIViewController {
     
     @IBAction func backButton(_ sender: UIButton) {
         let testVC = ViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
         self.present(testVC!, animated: false, completion: {
 //            testVC?.offCurrencyButton()
             testVC?.showSecondPlan(bool: true)
@@ -192,6 +193,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate, UI
         switch indexPath.section {
         case 0:
             let testVC = NewCatViewController.storyboardInstance()
+            testVC?.modalPresentationStyle = .fullScreen
             self.present(testVC!, animated: false, completion: {
                 testVC?.count = self.count
             })
