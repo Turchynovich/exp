@@ -199,6 +199,7 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate, UI
             })
         case 1..<100:
             let testVC = ViewController.storyboardInstance()
+            testVC?.modalPresentationStyle = .fullScreen
             self.present(testVC!, animated: false, completion: {
 //                testVC?.offCurrencyButton()
                 testVC?.showSecondPlan(bool: true)
