@@ -138,6 +138,14 @@ class NewCatViewController: UIViewController {
     @IBAction func cancelAction(_ sender: UIButton) {
         let testVC = CategoryViewController.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         self.present(testVC!, animated: false, completion: {
             testVC?.labelCount.text = self.count
             testVC?.count = self.count
@@ -154,6 +162,14 @@ class NewCatViewController: UIViewController {
         }
         let testVC = CategoryViewController.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         self.present(testVC!, animated: false, completion: {
             testVC?.labelCount.text = self.count
             testVC?.count = self.count

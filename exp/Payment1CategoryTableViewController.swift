@@ -104,6 +104,14 @@ class Payment1CategoryTableViewController: UIViewController {
     @IBAction func dateFilter(_ sender: UIButton) {
         let testVC = FilterViewController.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         testVC!.startDateFilter = startDate
         testVC!.endDateFilter = endDate
         testVC!.dataStrFilter = dataStr
@@ -113,6 +121,14 @@ class Payment1CategoryTableViewController: UIViewController {
     @IBAction func backButton(_ sender: UIButton) {
         let textVC = ViewController.storyboardInstance()
         textVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         self.present(textVC!, animated: false, completion: nil)
         CoreDataManager.instance.managedObjectContext.reset()
     }

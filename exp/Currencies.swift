@@ -55,6 +55,14 @@ class Currencies: UIViewController {
     @IBAction func backAction(_ sender: UIButton) {
         let testVC = Settings.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         self.present(testVC!, animated: false, completion: nil)
     }
 }
@@ -133,6 +141,14 @@ extension Currencies: UITableViewDelegate, UITableViewDataSource {
             let currency = fetchedResultsController.object(at: indexPath) as! Currency
             let testVC = SelectCurrency.storyboardInstance()
             testVC?.modalPresentationStyle = .fullScreen
+            
+            let transition = CATransition()
+            transition.duration = 0.3
+            transition.type = CATransitionType.push
+            transition.subtype = CATransitionSubtype.fromRight
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            view.window?.layer.add(transition, forKey: kCATransition)
+            
             testVC?.selectCurrencyFromCurrencies = currency
             self.present(testVC!, animated: false, completion: nil)
         }
@@ -140,6 +156,14 @@ extension Currencies: UITableViewDelegate, UITableViewDataSource {
         func addCurrency() {
             let testVC = AddCurrency.storyboardInstance()
             testVC?.modalPresentationStyle = .fullScreen
+            
+            let transition = CATransition()
+            transition.duration = 0.3
+            transition.type = CATransitionType.push
+            transition.subtype = CATransitionSubtype.fromRight
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            view.window?.layer.add(transition, forKey: kCATransition)
+            
             self.present(testVC!, animated: false, completion: nil)
         }
         let s: Int = self.fetchedResultsController.fetchedObjects?.count ?? 0

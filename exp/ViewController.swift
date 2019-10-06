@@ -373,11 +373,27 @@ class ViewController: UIViewController {
     @IBAction func settingsButton(_ sender: UIButton) {
         let testVC = Settings.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         self.present(testVC!, animated: false, completion: nil)
     }
     
     @IBAction func categoryAction(_ sender: UIButton) {
         let testVC = CategoryViewController.storyboardInstance()
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromRight
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         testVC?.modalPresentationStyle = .fullScreen
         testVC?.count = priceLabel.text ?? ""
         self.present(testVC!, animated: false, completion: nil)

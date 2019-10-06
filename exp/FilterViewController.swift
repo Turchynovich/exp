@@ -58,6 +58,14 @@ class FilterViewController: UIViewController {
         
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         testVC?.startDate = dateFrom
         testVC?.endDate = dateTo
         testVC?.dataStr = (dateString(date: dateFrom) + " - " + dateString1(date: dateTo), str)
@@ -159,6 +167,14 @@ class FilterViewController: UIViewController {
     @IBAction func backButton(_ sender: UIButton) {
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         testVC?.startDate = startDateFilter
         testVC?.endDate = endDateFilter
         testVC?.dataStr = dataStrFilter
@@ -190,6 +206,15 @@ class FilterViewController: UIViewController {
     
     @IBAction func cancelButton(_ sender: UIButton) {
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
+        testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         testVC?.startDate = startDateFilter
         testVC?.endDate = endDateFilter
         testVC?.dataStr = dataStrFilter
@@ -199,6 +224,14 @@ class FilterViewController: UIViewController {
     @IBAction func showButton(_ sender: UIButton) {
         let testVC = Payment1CategoryTableViewController.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         testVC?.startDate = startDateFilter
         testVC?.endDate = endDateFilter
         testVC?.dataStr = (dateString(date: startDateFilter) + " - " + dateString1(date: endDateFilter), "CUSTOM DATE")

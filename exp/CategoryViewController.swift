@@ -86,6 +86,14 @@ class CategoryViewController: UIViewController {
     @IBAction func backButton(_ sender: UIButton) {
         let testVC = ViewController.storyboardInstance()
         testVC?.modalPresentationStyle = .fullScreen
+        
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = CATransitionType.push
+        transition.subtype = CATransitionSubtype.fromLeft
+        transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+        view.window?.layer.add(transition, forKey: kCATransition)
+        
         self.present(testVC!, animated: false, completion: {
 //            testVC?.offCurrencyButton()
             testVC?.showSecondPlan(bool: true)
@@ -194,12 +202,28 @@ extension CategoryViewController: UITableViewDataSource, UITableViewDelegate, UI
         case 0:
             let testVC = NewCatViewController.storyboardInstance()
             testVC?.modalPresentationStyle = .fullScreen
+            
+            let transition = CATransition()
+            transition.duration = 0.3
+            transition.type = CATransitionType.push
+            transition.subtype = CATransitionSubtype.fromRight
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            view.window?.layer.add(transition, forKey: kCATransition)
+            
             self.present(testVC!, animated: false, completion: {
                 testVC?.count = self.count
             })
         case 1..<100:
             let testVC = ViewController.storyboardInstance()
             testVC?.modalPresentationStyle = .fullScreen
+            
+            let transition = CATransition()
+            transition.duration = 0.3
+            transition.type = CATransitionType.push
+            transition.subtype = CATransitionSubtype.fromLeft
+            transition.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
+            view.window?.layer.add(transition, forKey: kCATransition)
+            
             self.present(testVC!, animated: false, completion: {
 //                testVC?.offCurrencyButton()
                 testVC?.showSecondPlan(bool: true)
