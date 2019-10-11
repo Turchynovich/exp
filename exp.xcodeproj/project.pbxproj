@@ -471,6 +471,7 @@
 		ACDA5F1B2110DF0E006A60FD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QFCPG6VXHP;
 				INFOPLIST_FILE = exp/Info.plist;
@@ -483,13 +484,14 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.turchinovich.exp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
 		ACDA5F1C2110DF0E006A60FD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = QFCPG6VXHP;
 				INFOPLIST_FILE = exp/Info.plist;
@@ -501,7 +503,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.turchinovich.exp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
