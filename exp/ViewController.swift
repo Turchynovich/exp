@@ -29,6 +29,12 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         showSecondPlan(bool: false)
+        settings.isHidden = false
+        report.isHidden = false
+        backButton.isHidden = !false
+        label1.isHidden = false
+        label2.isHidden = false
+        enterLabel.isHidden = !false
         labelDate(index: 0)
     }
     
@@ -37,21 +43,18 @@ class ViewController: UIViewController {
     func showSecondPlan(bool: Bool) {
         containerView.isHidden = bool
         pageControl.isHidden = bool
-        report.isHidden = bool
-        settings.isHidden = bool
-        label1.isHidden = bool
-        label2.isHidden = bool
+        //report.isHidden = bool
+        //settings.isHidden = bool
+        //label1.isHidden = bool
+        //label2.isHidden = bool
         
         addExpensesButton.isHidden = !bool
         categoryButton.isHidden = !bool
         priceLabel.isHidden = !bool
         currencyLabel.isHidden = !bool
-        enterLabel.isHidden = !bool
-        backButton.isHidden = !bool
-        
-        if bool {
-            buttonsCurrency()
-        }
+        //enterLabel.isHidden = !bool
+        //backButton.isHidden = !bool
+
     }
     
     func addTextToCategoryButton(text: String) {
@@ -255,7 +258,65 @@ class ViewController: UIViewController {
         self.view.addSubview(button)
     }
     
-   
+    //анимация view
+    func animationViews(screenShowExpenses: Bool) {
+        
+        
+        func aminate(view: UIView, up: Bool) {
+            var y1: CGFloat
+            var y2: CGFloat
+            if !screenShowExpenses {
+                y1 = -38
+                y2 = 41
+            } else {
+                y1 = 41
+                y2 = -38
+            }
+            
+            if up {
+                UIView.animate(withDuration: 0.25, animations: {
+                    view.transform = CGAffineTransform(translationX: 0, y: y1)
+                    view.alpha = 0
+                }, completion: {if $0 {view.isHidden = true}})
+            } else {
+                view.isHidden = false
+                view.transform = CGAffineTransform(translationX: 0, y: y2)
+                view.alpha = 0
+                UIView.animate(withDuration: 0.25) {
+                    view.transform = CGAffineTransform(translationX: 0, y: 0)
+                    view.alpha = 1
+                }
+            }
+        }
+        
+        func animationOval(view: UIView, show: Bool) {
+            if show {
+                print("show")
+            } else {
+                UIView.animate(withDuration: 0.25, animations: {
+                    view.transform = CGAffineTransform(scaleX: 0, y: 0)
+                }, completion: {if $0 {view.isHidden = true}})
+            }
+        }
+
+        
+        if screenShowExpenses {
+            aminate(view: self.report, up: false)
+            aminate(view: self.settings, up: false)
+            aminate(view: self.backButton, up: true)
+            aminate(view: self.label1, up: false)
+            aminate(view: self.label2, up: false)
+            aminate(view: self.enterLabel, up: true)
+        } else {
+            aminate(view: self.report, up: true)
+            aminate(view: self.settings, up: true)
+            aminate(view: self.backButton, up: false)
+            aminate(view: self.label1, up: true)
+            aminate(view: self.label2, up: true)
+            aminate(view: self.enterLabel, up: false)
+            
+        }
+    }
     
     
     
@@ -344,14 +405,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func backAction(_ sender: UIButton) {
-        showSecondPlan(bool: false)
+        animationViews(screenShowExpenses: true)
         priceLabel.text = ""
-
-        let testVC = ViewController.storyboardInstance()
-        testVC?.modalPresentationStyle = .fullScreen
-        self.present(testVC!, animated: false, completion: nil)
     }
     @IBAction func numPad(_ sender: UIButton) {
+        animationViews(screenShowExpenses: false)
 
         if !containerView.isHidden {
             showSecondPlan(bool: true)

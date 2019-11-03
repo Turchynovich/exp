@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC0DCDBA2350D4ED00C72C89 /* todo.rtf in Resources */ = {isa = PBXBuildFile; fileRef = AC0DCDB92350D4ED00C72C89 /* todo.rtf */; };
 		AC133CCF22664ECE0016CB69 /* AddCurrency.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC133CCE22664ECE0016CB69 /* AddCurrency.swift */; };
 		AC246FE021ADD706006F7FAD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC246FDF21ADD706006F7FAD /* Settings.swift */; };
 		AC39EF772177CA35000E77CA /* CoreDataManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC39EF762177CA35000E77CA /* CoreDataManager.swift */; };
@@ -54,6 +55,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AC0DCDB92350D4ED00C72C89 /* todo.rtf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.rtf; path = todo.rtf; sourceTree = "<group>"; };
 		AC133CCE22664ECE0016CB69 /* AddCurrency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCurrency.swift; sourceTree = "<group>"; };
 		AC246FDF21ADD706006F7FAD /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		AC39EF682177C3EC000E77CA /* Payment+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Payment+CoreDataProperties.swift"; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 		ACDA5EFC2110DF0D006A60FD = {
 			isa = PBXGroup;
 			children = (
+				AC0DCDB92350D4ED00C72C89 /* todo.rtf */,
 				ACDA5F072110DF0D006A60FD /* exp */,
 				ACDA5F062110DF0D006A60FD /* Products */,
 				AC568FB12247AD6C00D1ECA3 /* Recovered References */,
@@ -283,6 +286,7 @@
 				ACDA5F2F2110E36D006A60FD /* GothaProLig.otf in Resources */,
 				ACDA5F302110E36D006A60FD /* GothaProLigIta.otf in Resources */,
 				ACDA5F312110E36D006A60FD /* GothaProMed.otf in Resources */,
+				AC0DCDBA2350D4ED00C72C89 /* todo.rtf in Resources */,
 				ACDA5F322110E36D006A60FD /* GothaProMedIta.otf in Resources */,
 				ACDA5F332110E36D006A60FD /* GothaProNarBol.otf in Resources */,
 				ACDA5F342110E36D006A60FD /* GothaProNarMed.otf in Resources */,
