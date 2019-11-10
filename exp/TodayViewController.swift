@@ -11,10 +11,25 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         buttonCurrency()
+        NotificationCenter.default.addObserver(self, selector: #selector(viewWasLoaded), name: NSNotification.Name("viewLoaded()"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(viewWasLoaded1), name: NSNotification.Name("viewLoaded1()"), object: nil)
     }
     
-
+    //анимация овала
+    @objc private func viewWasLoaded() {
+        UIView.animate(withDuration: 0.1) {
+            self.todayButton.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
+            self.todayButton.alpha = 0
+        }
+    }
     
+    @objc private func viewWasLoaded1() {
+        UIView.animate(withDuration: 0.40, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.7, options: .curveEaseInOut, animations: {
+            self.todayButton.transform = CGAffineTransform(scaleX: 1, y: 1)
+            self.todayButton.alpha = 1
+        }, completion: nil)
+    }
+
     //возвращает массив валют, которые были использованы сегодня(первые 3)
     func countOfCurrencyToday() -> [String] {
         var arrayOfCurrency = [String]()

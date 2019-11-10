@@ -289,14 +289,69 @@ class ViewController: UIViewController {
             }
         }
         
-        func animationOval(view: UIView, show: Bool) {
-            if show {
-                print("show")
-            } else {
-                UIView.animate(withDuration: 0.25, animations: {
-                    view.transform = CGAffineTransform(scaleX: 0, y: 0)
-                }, completion: {if $0 {view.isHidden = true}})
+        func animate_2(view: UIView, alpha: CGFloat) {
+            view.isHidden = false
+            view.transform = CGAffineTransform(translationX: 0, y: 30)
+            view.alpha = 0
+            UIView.animate(withDuration: 0.15) {
+                view.transform = CGAffineTransform(translationX: 0, y: 0)
+                view.alpha = alpha
             }
+        }
+        
+        func animate_3(view: UIView) {
+            view.isHidden = false
+            view.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
+            view.alpha = 0
+            UIView.animate(withDuration: 0.50, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.3, options: .curveEaseInOut, animations: {
+                view.transform = CGAffineTransform(scaleX: 1, y: 1)
+                view.alpha = 1
+            }, completion: nil)
+        }
+        
+        func animationOval() {
+            //понять какой экран сейчас показывается
+            //запустить функцию именно с нужного экрана
+            NotificationCenter.default.post(name: NSNotification.Name("viewLoaded()"), object: nil)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                //self.showSecondPlan(bool: true)
+                self.containerView.isHidden = true
+                self.pageControl.isHidden = true
+                animate_2(view: self.categoryButton, alpha: 0.45)
+                animate_2(view: self.priceLabel, alpha: 1)
+                animate_2(view: self.currencyLabel, alpha: 1)
+                animate_3(view: self.addExpensesButton)
+            }
+        }
+        
+        func animate_5(view: UIView) {
+            UIView.animate(withDuration: 0.3, animations: {
+                view.transform = CGAffineTransform(translationX: 0, y: 30)
+                view.alpha = 0
+            }, completion: {if $0 {view.isHidden = true}})
+        }
+        
+        func animate_6(view: UIView) {
+            
+            
+            UIView.animate(withDuration: 0.50, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.3, options: .curveEaseInOut, animations: {
+                view.transform = CGAffineTransform(scaleX: 0.05, y: 0.05)
+                view.alpha = 0
+            }, completion: {if $0 {view.isHidden = true}})
+        }
+        
+        func animate_4() {
+            animate_5(view: self.categoryButton)
+            animate_5(view: self.priceLabel)
+            animate_5(view: self.currencyLabel)
+            animate_6(view: self.addExpensesButton)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.containerView.isHidden = false
+                self.pageControl.isHidden = false
+                NotificationCenter.default.post(name: NSNotification.Name("viewLoaded1()"), object: nil)
+            }
+            
+            
         }
 
         
@@ -307,6 +362,8 @@ class ViewController: UIViewController {
             aminate(view: self.label1, up: false)
             aminate(view: self.label2, up: false)
             aminate(view: self.enterLabel, up: true)
+            animate_4()
+            
         } else {
             aminate(view: self.report, up: true)
             aminate(view: self.settings, up: true)
@@ -314,7 +371,7 @@ class ViewController: UIViewController {
             aminate(view: self.label1, up: true)
             aminate(view: self.label2, up: true)
             aminate(view: self.enterLabel, up: false)
-            
+            animationOval()
         }
     }
     
@@ -407,13 +464,14 @@ class ViewController: UIViewController {
     @IBAction func backAction(_ sender: UIButton) {
         animationViews(screenShowExpenses: true)
         priceLabel.text = ""
+        containerView.isHidden = false
     }
     @IBAction func numPad(_ sender: UIButton) {
         animationViews(screenShowExpenses: false)
 
-        if !containerView.isHidden {
-            showSecondPlan(bool: true)
-        }
+//        if !containerView.isHidden {
+//            showSecondPlan(bool: true)
+//        }
         if let digit = sender.currentTitle {
             let textCurrentlyInDisplay = priceLabel!.text!
             priceLabel.text = textCurrentlyInDisplay + digit
